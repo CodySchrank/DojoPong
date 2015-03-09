@@ -1,5 +1,7 @@
 <?
 
+session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +12,16 @@
 <body>
 	<h1>Welcome To Dojo Pong</h1>
 	<h3>Track your stats</h3>
+	<?
+
+	if(isset($_SESSION['errors'])) {
+		foreach ($_SESSION['errors'] as $error) {
+			echo "<p class='error'>".$error."</p><br>";
+		}
+		unset($_SESSION['errors']);
+	}
+
+	?>
 	<form action="process.php" method="post">
 		<div>
 			<label>Your Name:</label>
@@ -37,5 +49,7 @@
 			<input type="submit" value="Track">
 		</div>
 	</form>
+
+
 </body>
 </html>
