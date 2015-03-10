@@ -41,11 +41,11 @@ function insertData($post) {
 		$opponent_wins = escape_this_string($post['opponent_wins']);
 	}
 
-	if(count($_SESSION['errors']) > 0) {
+	if(isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
 
 		header('location: index.php');
 		die();
-		
+
 	} else {
 		$query = "INSERT INTO games (name, partner, wins, opponent_name, opponent_partner, opponent_wins, created_at)
 				  VALUES ('{$name}','{$partner}',{$wins},'{$opponent_name}','{$opponent_partner}',{$opponent_wins}, NOW())";
