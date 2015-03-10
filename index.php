@@ -25,7 +25,7 @@ session_start();
 	?>
 	<form action="process.php" method="post">
 		<div>
-			<label>Your Name:</label>
+			<label>Your Full Name:</label>
 			<input type="text" name="name">
 		</div>
 		<!-- <div>
@@ -37,7 +37,7 @@ session_start();
 			<input type="number" name="score">
 		</div>
 		<div>
-			<label>Opponent's Name</label>
+			<label>Opponent's Full Name</label>
 			<input type="text" name="opponent_name">
 		</div>
 		<!-- <div>
@@ -51,7 +51,8 @@ session_start();
 		</div>
 	</form>
 
-
+	<h3>Normalized Wins: </h3>
+	
 	<script type="text/javascript">
 		var diameter = 600,
 		    format = d3.format(",d"),
