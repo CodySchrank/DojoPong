@@ -57,16 +57,16 @@ function insertData($post) {
 		if(empty($names[0])){
 			$insert = "INSERT INTO players (name, created_at) VALUES ('{$name}', NOW())";
 			run_mysql_query($insert);
-			$query = "SELECT * FROM players WHERE name='{$name}' OR name='{$opponent_name}'";
-			$names = fetch_all($query);
+			$query = "SELECT * FROM players WHERE name='{$name}'";
+			$names[0] = fetch_record($query);
 		}
 
 		// ------ CHECKS IF PLAYER 2 EXISTS THEN GRABS INFO AS NAMES[1] ------
 		if(empty($names[1])) {
 			$insert = "INSERT INTO players (name, created_at) VALUES ('{$opponent_name}', NOW())";
 			run_mysql_query($insert);
-			$query = "SELECT * FROM players WHERE name='{$name}' OR name='{$opponent_name}'";
-			$names = fetch_all($query);
+			$query = "SELECT * FROM players WHERE name='{$opponent_name}'";
+			$names[1] = fetch_record($query);
 		}
 		// ----- INSERTS BOTH PLAYERS INTO DB WITH SCORE, USE ALIAS TO ACCESS ------
 		if($_POST['score'] > $_POST['opponent_score']) {
@@ -77,6 +77,10 @@ function insertData($post) {
 
 		$scores_query = "INSERT INTO games (player1_id, player2_id, player1_score, player2_score, created_at, winner) 
 						 VALUES ({$names[0]['id']}, {$names[1]['id']}, {$_POST['score']}, {$_POST['opponent_score']}, NOW(), {$winner})";
+
+		echo $scores_query;
+		die();
+
 		run_mysql_query($scores_query);
 		header('location: index.php');
 		die();
