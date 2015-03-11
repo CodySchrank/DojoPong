@@ -15,28 +15,20 @@ function json_win_rate() {
 	echo '"name": "flare",';
 	echo '"children": [ ';
 	foreach ($names as $key => $name) {
+		$count_query = "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
+		LEFT JOIN players as player2 ON player2.id = games.player2_id
+		WHERE winner = {$name['id']}";
+		$count = fetch_all($count_query);
+		$total = count(fetch_all($total_query));
+		$normal = ($count[0]["count(*)"]);
 		if($key == 0) {
-			$count_query = "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
-			LEFT JOIN players as player2 ON player2.id = games.player2_id
-			WHERE winner = {$name['id']}";
-			$count = fetch_all($count_query);
-			$total = count(fetch_all($total_query));
-			$normal = ($count[0]["count(*)"]);
 			echo '{';
-			echo '"name": "'.$key.'",';
-			echo '"children": [{"name": "'.ucwords(str_replace("_"," ",$name['name'])).'", "size":'.$normal.'}]';
-			echo "}";
 		} else {
-			$count_query = "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
-			LEFT JOIN players as player2 ON player2.id = games.player2_id
-			WHERE winner = {$name['id']}";
-			$count = fetch_all($count_query);
-			$normal = ($count[0]["count(*)"]);
 			echo ',{';
-			echo '"name": "'.$key.'",';
-			echo '"children": [{"name": "'.ucwords(str_replace("_"," ",$name['name'])).'", "size":'.$normal.'}]';
-			echo "}";
 		}
+		echo '"name": "'.$key.'",';
+		echo '"children": [{"name": "'.ucwords(str_replace("_"," ",$name['name'])).'", "size":'.$normal.'}]';
+		echo "}";
 	}
 	echo "]";
 	echo "}";
