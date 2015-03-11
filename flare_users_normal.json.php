@@ -19,9 +19,13 @@ function json_win_rate() {
 			$count_query = "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
 			LEFT JOIN players as player2 ON player2.id = games.player2_id
 			WHERE winner = {$name['id']}";
+			$player_query =  "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
+			LEFT JOIN players as player2 ON player2.id = games.player2_id
+			WHERE player1_id = {$name['id']} OR player2_id = {$name['id']}";
+			$player = fetch_all($player_query);
 			$count = fetch_all($count_query);
 			$total = count(fetch_all($total_query));
-			$normal = ($count[0]["count(*)"]);
+			$normal = floor((($count[0]["count(*)"]/$player[0]["count(*)"]) * 100)/$total);
 			echo '{';
 			echo '"name": "'.$key.'",';
 			echo '"children": [{"name": "'.ucwords(str_replace("_"," ",$name['name'])).'", "size":'.$normal.'}]';
@@ -30,8 +34,13 @@ function json_win_rate() {
 			$count_query = "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
 			LEFT JOIN players as player2 ON player2.id = games.player2_id
 			WHERE winner = {$name['id']}";
+			$player_query =  "SELECT count(*) FROM players LEFT JOIN games ON players.id = games.player1_id
+			LEFT JOIN players as player2 ON player2.id = games.player2_id
+			WHERE player1_id = {$name['id']} OR player2_id = {$name['id']}";
+			$player = fetch_all($player_query);
 			$count = fetch_all($count_query);
-			$normal = ($count[0]["count(*)"]);
+			$total = count(fetch_all($total_query));
+			$normal = floor((($count[0]["count(*)"]/$player[0]["count(*)"]) * 100)/$total);
 			echo ',{';
 			echo '"name": "'.$key.'",';
 			echo '"children": [{"name": "'.ucwords(str_replace("_"," ",$name['name'])).'", "size":'.$normal.'}]';

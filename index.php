@@ -9,8 +9,13 @@ session_start();
 <head>
 	<title>Dojo Pong</title>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<link rel="stylesheet" type="text/css" href="skeleton.css">
 </head>
 <body>
+	<div class="container">
+		<div class="row">
+			<div class="one-half column">
 	<h1>Welcome To Dojo Pong</h1>
 	<h3>Track your stats</h3>
 	<?
@@ -50,8 +55,10 @@ session_start();
 			<input type="submit" value="Track">
 		</div>
 	</form>
+	</div>
 
-	<h3>Normalized Wins: </h3>
+	<div class="one-half column" id="graph">
+	<h3>Total Wins: </h3>
 	
 	<script type="text/javascript">
 		var diameter = 600,
@@ -63,7 +70,7 @@ session_start();
 		    .size([diameter, diameter])
 		    .padding(1.5);
 
-		var svg = d3.select("body").append("svg")
+		var svg = d3.select("#graph").append("svg")
 		    .attr("width", diameter)
 		    .attr("height", diameter)
 		    .attr("class", "bubble");
@@ -105,7 +112,8 @@ session_start();
 		d3.select(self.frameElement).style("height", diameter + "px");
 
 	</script>
-
-
+	</div>
+</div>
+</div>
 </body>
 </html>
