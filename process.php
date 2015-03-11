@@ -78,9 +78,6 @@ function insertData($post) {
 		$scores_query = "INSERT INTO games (player1_id, player2_id, player1_score, player2_score, created_at, winner) 
 						 VALUES ({$names[0]['id']}, {$names[1]['id']}, {$_POST['score']}, {$_POST['opponent_score']}, NOW(), {$winner})";
 
-		echo $scores_query;
-		die();
-
 		run_mysql_query($scores_query);
 		header('location: index.php');
 		die();
